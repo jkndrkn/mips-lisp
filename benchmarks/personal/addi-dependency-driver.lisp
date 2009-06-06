@@ -1,0 +1,17 @@
+(in-package :com.jkndrkn.iss.assembler)
+(compile-asm "benchmarks/personal/addi-dependency.lisp")
+(in-package :com.jkndrkn.iss.simulator)
+(setf *debug-mode* nil)
+(run "benchmarks/personal/addi-dependency.lisp.mac" "pipeline" 
+     :init-conditions #'(lambda () 
+			  (dotimes (x 32) 
+			    (setf (elt *reg* x) x) 
+			    (setf (elt *d-mem* x) x))))
+
+(when (not (eq (elt *reg* 1) 16)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 2) 17)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 3) 17)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 4) 17)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 5) 17)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 6) 17)) (error (format nil "FAIL: addi-dependency bad output")))
+(when (not (eq (elt *reg* 7) 17)) (error (format nil "FAIL: addi-dependency bad output")))

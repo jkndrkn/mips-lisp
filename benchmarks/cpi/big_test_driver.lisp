@@ -1,0 +1,17 @@
+(in-package :com.jkndrkn.iss.assembler)
+(compile-asm "benchmarks/cpi/big_test.lisp")
+(in-package :com.jkndrkn.iss.simulator)
+(setf *debug-mode* nil)
+(setf *debug-mode-cache* nil)
+(run "benchmarks/cpi/big_test.lisp.mac" "pipeline" 
+     :init-conditions #'(lambda () 
+			  (dotimes (x 32) 
+			    (setf (elt *reg* x) x) 
+			    (setf (elt *d-mem* x) x))))
+
+(when (not (equalp (cpi) "10.80")) (error (format nil "FAIL: big_test bad CPI")))
+(when (not (eq (elt *reg* 1) 5)) (error (format nil "FAIL: big_test bad output")))
+(when (not (eq (elt *reg* 4) 10)) (error (format nil "FAIL: big_test bad output")))
+(when (not (eq (elt *reg* 6) 12)) (error (format nil "FAIL: big_test bad output")))
+(when (not (eq (elt *reg* 8) 14)) (error (format nil "FAIL: big_test bad output")))
+(when (not (eq (elt *reg* 10) 16)) (error (format nil "FAIL: big_test bad output")))

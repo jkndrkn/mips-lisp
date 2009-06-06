@@ -1,0 +1,15 @@
+(in-package :com.jkndrkn.iss.assembler)
+(compile-asm "benchmarks/cpi/alu_reg_1.lisp")
+(in-package :com.jkndrkn.iss.simulator)
+(setf *debug-mode* nil)
+(run "benchmarks/cpi/alu_reg_1.lisp.mac" "pipeline" 
+     :init-conditions #'(lambda () 
+			  (dotimes (x 32) 
+			    (setf (elt *reg* x) x) 
+			    (setf (elt *d-mem* x) x))))
+
+(when (not (equalp (cpi) "10.80")) (error (format nil "FAIL: alu_reg_1 bad CPI")))
+(when (not (eq (elt *reg* 1) 5)) (error (format nil "FAIL: alu_reg_1 bad output")))
+(when (not (eq (elt *reg* 4) 7)) (error (format nil "FAIL: alu_reg_1 bad output")))
+(when (not (eq (elt *reg* 6) 15)) (error (format nil "FAIL: alu_reg_1 bad output")))
+(when (not (eq (elt *reg* 9) 21)) (error (format nil "FAIL: alu_reg_1 bad output")))

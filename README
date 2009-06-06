@@ -1,0 +1,32 @@
+Instruction Set Simulator Project
+
+John David Eriksen
+http://www.jkndrkn.com
+john.eriksen@yahoo.com
+
+--
+
+Documentation:
+
+/DOC - How the assembler and simulator work
+/README - This file
+/SETUP - How to set up the development environment
+
+Assembler and Simulator:
+
+/load.lisp - Loads assembler and simulator into development environment
+/assembler.lisp - Converts assembly code into machine code 
+/simulator.lisp - Reads and executes machine code
+
+Benchmarks:
+
+/benchmarks/benchmark-driver.lisp - Top-level benchmark suite driver. Executing this driver runs all benchmarks.
+
+/benchmarks/big/ - array, mult, memmove, matrix, gcd, fib, and list-reverse benchmarks
+/benchmarks/big/big-benchmark-driver.lisp - Runs all benchmarks in this directory
+
+/benchmarks/cpi/ - CPI benchmarks
+/benchmarks/cpi/cpi-benchmark-driver.lisp - Runs all benchmarks in this directory
+
+/benchmarks/personal/ - Personal benchmarks to test certain corner cases
+/benchmarks/personal/personal-benchmark-driver.lisp - Runs all benchmarks in this directory

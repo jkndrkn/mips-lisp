@@ -1,0 +1,16 @@
+;;;; Busy loop
+
+(addi r10 r0 100)
+(addi r11 r0 0)
+(loop-cache-start)
+(label "loop")
+(beq r10 "done" r11)
+(add r1 r2 r3)
+(add r2 r1 r3)
+(add r3 r2 r4)
+(add r4 r3 r5)
+(add r5 r4 r6)
+(addi r11 r11 1)
+(j "loop")
+(loop-cache-end)
+(label "done")

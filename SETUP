@@ -1,0 +1,31 @@
+Instruction Set Simulator Project
+
+John David Eriksen
+http://www.jkndrkn.com
+john.eriksen@yahoo.com
+
+--
+
+This project runs in SLIME on EMACS.
+
+If EMACS 21.3 is not installed on your system, install a complete Lisp environment by installing Lispbox.
+Lispbox combines EMACS, a Common Lisp implementation, and SLIME.
+
+Note: Lispbox was used for all development and testing.
+
+If EMACS 21.3 is installed on your system and installing Lispbox is not desirable, install Common Lisp 2.37 and SLIME.
+Be sure to carefully follow the installation instructions for SLIME.
+
+Note: This project has *not* been tested with the preceeding method, but it should work.
+
+Once these components have been installed and have been verified to work, you are ready to proceed with running the assembler, simulator, and benchmarks.
+
+--
+
+Resources:
+
+http://www.gigamonkeys.com/book/
+http://www.gigamonkeys.com/book/lispbox/
+http://common-lisp.net/
+http://common-lisp.net/project/slime/
+http://common-lisp.net/project/slime/doc/html/

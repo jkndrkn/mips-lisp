@@ -1,0 +1,84 @@
+Instruction Set Simulator Project
+
+John David Eriksen
+http://www.jkndrkn.com
+john.eriksen@yahoo.com
+
+--
+
+ASSEMBLER
+
+Assembly code files are located in the /benchmarks directory. They end in .lisp, not driver.lisp. They are valid Lisp code files loaded and executed by the assembler at run time.
+
+Each assembly code instruction appends an intermediate format machine code instruction into a list of instructions. This list is then passed through a second loop where branch target labels are converted to instruction memory addresses. 
+
+The list of machine code instructions consists of a linked list of associative arrays. It is serialized and then written to disk to produce the "machine code" file that is read and executed by the simulator. The machine code extension is .mac
+
+Key functions:
+
+COMPILE-ASM - The main driver function.
+RESOLVE-BRANCH-TARGETS - Does what it says.
+ADD, SUB, MUL, DIV, LW, SW, BEQ, BNE, BGT, J, ADDI - The complete instruction set available to the assembly code programmer.
+ 
+--
+
+SIMULATOR
+
+Machine code is loaded into *I-MEM* (instruction memory). The code is then executed, and results of the operations are visible in *REG* (the register file) and *D-MEM* (data memory).
+
+Data memory is an array of 25000 integers, all initialized to 0. Attempts to increase the size of data memory slowed execution time to the point of impracticality. On a P4 PC, it takes a few seconds to run benchmarks that have many loops.
+
+Key functions:
+
+STAGE - A generic function and five methods. Each method corresponds to one of the pipeline stages.
+RUN - Executes the machine code file. Provides either pipelined or unpipelined execution modes. Of interest to this project is the pipelined execution mode.
+RUN-PIPELINE - Main driver function for pipelined execution.
+D-MEM-PRINT - Provides a nicely formatted view of data memory.
+REG-PRINT - Provides a view of the register file.
+CPI - Provides CPI. 
+
+-- 
+
+SAMPLE EXECUTION
+
+1) Load the assembler and simulator:
+
+> (load (compile-file "load.lisp"))
+
+2) Compile an assembly code file:
+
+> (in-package :com.jkndrkn.iss.assembler)
+> (compile-asm "benchmarks/big/matrix.lisp")
+
+3) Execute the machine code:
+
+> (in-package :com.jkndrkn.iss.simulator)
+> (run "benchmarks/big/matrix.lisp.mac" "pipeline")
+
+4) View results:
+
+> (reg-print)
+> (d-mem-print 5 10)
+> (cpi)
+
+-- 
+
+BENCHMARK SUITES
+
+The benchmark suite compiles, executes, and verifies benchmarks. There are three groups, and three corresponding benchmark suite driver files. There is also a top-level benchmark driver file that runs all suites in all three groups.
+
+Each benchmark will signal an error and halt execution if expected CPI, register file, and/or data memory values are incorrect.
+
+1) Load the assembler and simulator:
+
+> (load (compile-file "load.lisp"))
+
+2) Execute all benchmarks: 
+
+> (load (compile-file "benchmark-driver.lisp"))
+
+--
+
+RESULTS
+
+All benchmarks are complete and have been verified to be running correctly.

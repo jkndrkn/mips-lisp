@@ -1,0 +1,7 @@
+(addi r1 r0 0)
+(addi r5 r0 7)
+(beq r1 "done" r0)
+(addi r4 r0 5)
+(addi r6 r0 7)
+(label "done")
+(addi r5 r0 6)
